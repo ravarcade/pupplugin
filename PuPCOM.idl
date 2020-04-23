@@ -1,0 +1,43 @@
+import "oaidl.idl";
+import "ocidl.idl";
+
+
+[
+	object,
+	uuid(A502B6EA-FE04-4C7E-9837-07154BF14A28),
+	dual
+]
+interface IPuPCOM : IDispatch
+{
+	[id(0), helpstring("")]
+	HRESULT Msg(
+		[in] BSTR txt);
+
+	[id(1)]
+	HRESULT GetTextureId(
+		[in] BSTR textureName,
+		[out, retval] int *retval );
+
+	[id(2)]
+	HRESULT ReplaceTexture(
+		[in] int srcTextureId,
+		[in] int dstTextureId);
+
+	[id(3)]
+	HRESULT ReplaceTextureWithVideo(
+		[in] int targetTextureId,
+		[in, defaultvalue(1)] int videoStreamId);
+};
+
+[
+	uuid(9F3F078A-F1C8-4443-AF2D-E2D9247770DB),
+	version(1.0),
+]
+library PuPCOMTypeLibraryFileLib
+{
+	[uuid(C717D566-063E-4557-B618-E46DEAA107C5), helpstring("PuPCOM VBScript Type Library")]
+	coclass PuPCOM
+	{
+		[default] interface IPuPCOM;
+	};
+};
