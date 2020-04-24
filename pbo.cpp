@@ -61,6 +61,7 @@ void PboTextures::Swap()
 
 		memcpy_s(buf, bufSize, buffers[_bufferIdx], bufSize);
 		glUnmapBufferARB(GL_PIXEL_UNPACK_BUFFER_ARB); // release pointer to mapping buffer 
+		glBindBufferARB(GL_PIXEL_UNPACK_BUFFER_ARB, 0);
 	}
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
