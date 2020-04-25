@@ -57,3 +57,13 @@ HRESULT STDMETHODCALLTYPE PuPCOM::SearchFor(BSTR windowName)
    PuPVideo::SearchFor(szWindowName);
    return S_OK;
 }
+
+HRESULT STDMETHODCALLTYPE PuPCOM::ShowVideo(BSTR targetTextureName, BSTR windowName)
+{
+	int tid = 0;
+	GetTextureId(targetTextureName, &tid);
+	ReplaceTextureWithVideo(tid);
+	SearchFor(windowName);
+
+	return S_OK;
+}

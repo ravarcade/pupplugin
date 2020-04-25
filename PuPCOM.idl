@@ -30,7 +30,12 @@ interface IPuPCOM : IDispatch
 
    [id(4)]
    HRESULT SearchFor(
-      [in] BSTR windowName);
+		[in] BSTR windowName);
+
+   [id(5)]
+   HRESULT ShowVideo(
+	   [in] BSTR targetTextureName,
+	   [in, defaultvalue("PUPSCREEN2")] BSTR windowName);
 };
 
 [

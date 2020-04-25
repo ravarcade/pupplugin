@@ -27,22 +27,6 @@
 #include "pbo.h"
 #include "PuPVideo.h"
 
-// secuirity level
-enum {
-	PARANOIC = 0,
-	VERY_SAFE,
-	SAFE,
-	DEVELOPER
-};
-
-// configuration structure
-struct Ccfg {
-	int SecuitiyLevel;
-} cfg = { SAFE }; // defaults
-
-
-// menu "switch" values
-const char *SecuitiyLevel_txt[] = { "Paranoic (no extension)", "Very Safe (only whitelisted)", "Safe (disable blacklisted)", "Same as VPX (don't care)" };
 
 // cfg must be defined before PuPCOM.h is included
 #include "PuPCOM.h"
@@ -76,23 +60,15 @@ extern "C" {
 	// If not exist => dll is not BAM plugin and will be unloaded from RAM
 	BAMEXPORT int BAM_load(HMODULE bam_module)
 	{
-		// BAM plugin ID - 0x4101 - COM Extension for scripts plugin ID
+		// BAM plugin ID - 0x4201 - COM Extension for scripts plugin ID
 		// ID > 0x4000 - No Tracking Plugin
 		// - No Tracking Plugin can't be selected as "mode"
 		// - Is accesible in "Config"->"Plugins"
 		BAM::Init( 0x4201, bam_module ); 
 
 		// Creation of menu
-		BAM::menu::create("PuP Plugin Extensions", "Here you can control PuP Plugin");  
-		BAM::menu::info("#c777##-Options" DEFIW);
-
-		BAM::menu::paramSwtich("#-Security Level:" DEFPW "#+ #cfff#%s", &cfg.SecuitiyLevel, SecuitiyLevel_txt, ARRAY_ENTRIES(SecuitiyLevel_txt), "");
-
-
-		BAM::helpers::load("PuPPlugin", &cfg, sizeof(cfg));
-
-		// in this place only menu can be created and config files can be loaded
-		// there is not opengl context ready
+		BAM::menu::create("PuP Plugin", "");  
+		// menu is emppty
 
 		return 0;
 	}
@@ -117,9 +93,7 @@ extern "C" {
 	 * Forr "Non-Tracking" plugins, it is called at end of game (exit to FP editor)
 	 */ 
 	BAMEXPORT void BAM_PluginStop()
-	{
-		BAM::helpers::save("PuPPlugin", &cfg, sizeof(cfg));
-		
+	{	
 		// release reasources
 		if (sc) {
 			delete sc;

@@ -421,7 +421,7 @@ void ExtCapture::GetFrame()
    uint8_t* ddptr = (uint8_t *)m_pData;
 
 
-   for (size_t h = 0; h < m_Height; ++h)
+   for (int h = 0; h < m_Height; ++h)
    {
       memcpy_s(ddptr, m_Width * 4, sptr + (m_DispLeft * 4), m_Width * 4);
       sptr -= pitch;

@@ -136,5 +136,8 @@ public:
    HRESULT STDMETHODCALLTYPE SearchFor(
       /* [in] */ BSTR windowName);
 
+   HRESULT STDMETHODCALLTYPE ShowVideo(
+	   /* [in] */ BSTR targetTextureName,
+	   /* [defaultvalue][in] */ BSTR windowName = (BSTR)L"PUPSCREEN2");
 
 };
