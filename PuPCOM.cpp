@@ -48,3 +48,11 @@ HRESULT STDMETHODCALLTYPE PuPCOM::ReplaceTextureWithVideo(int targetTextureId, i
 	PuPVideo::ReplaceTextureWithVideo(targetTextureId, videoStreamId);
 	return S_OK;
 }
+
+HRESULT STDMETHODCALLTYPE PuPCOM::SearchFor(BSTR windowName)
+{
+   char szWindowName[MAX_PATH];
+   WideCharToMultiByte(CP_ACP, 0, windowName, -1, szWindowName, MAX_PATH, NULL, NULL);
+ 
+   PuPVideo::SearchFor(szWindowName);
+}
