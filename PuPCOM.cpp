@@ -55,4 +55,5 @@ HRESULT STDMETHODCALLTYPE PuPCOM::SearchFor(BSTR windowName)
    WideCharToMultiByte(CP_ACP, 0, windowName, -1, szWindowName, MAX_PATH, NULL, NULL);
  
    PuPVideo::SearchFor(szWindowName);
+   return S_OK;
 }

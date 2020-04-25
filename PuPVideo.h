@@ -4,6 +4,7 @@
 class PuPVideo
 {
 public:
+	static std::string sPupWindowName;
 	static void OnPluginStart();
 	static void OnPluginStop();
 	static void ReplaceTextureWithVideo(int textureId, int videoId);

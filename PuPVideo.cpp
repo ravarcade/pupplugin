@@ -14,12 +14,12 @@
 
 PboTextures texs;
 GLuint targetTextureId = 0;
-std::string sWindowName;
+std::string PuPVideo::sPupWindowName;
 
 void PuPVideo::OnPluginStart()
 {
 	targetTextureId = 0;
-   sWindowName = "PUPSCREEN2";
+   sPupWindowName = "PUPSCREEN2";
    captureStartup();
 }
 
@@ -31,7 +31,7 @@ void PuPVideo::OnPluginStop()
 
 void PuPVideo::SearchFor(const char *windowName)
 {
-   sWindowName = windowName;
+   sPupWindowName = windowName;
 }
 
 void PuPVideo::ReplaceTextureWithVideo(int textureId, int videoId)
@@ -41,17 +41,17 @@ void PuPVideo::ReplaceTextureWithVideo(int textureId, int videoId)
 
 char *PuPVideo::CreateTexture(int width, int height)
 {
-   texs.Init(width, height, GL_RGBA, 1);
+   texs.Init(width, height, GL_BGRA, 1);
    return texs.GetBuffer();
 }
 
-extern ecStage ecDMDStage;
+extern ecStage ecPUPStage;
 
 void PuPVideo::OnSwapBuffer()
 {
    captureCheckTextures();
 
-   if (ecDMDStage == ecCapturing && (targetTextureId != 0))
+   if (ecPUPStage == ecCapturing && (targetTextureId != 0))
    {
       // push data to texture
       texs.Swap();

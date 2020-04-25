@@ -46,7 +46,7 @@ void captureCheckTextures()
 
 void captureFindPUP()
 {
-   HWND target = FindWindowA(NULL, "PUPSCREEN2"); // PUP Window
+   HWND target = FindWindowA(NULL, PuPVideo::sPupWindowName.c_str()); // PUP Window
 
    if (target != NULL)
    {
@@ -414,13 +414,17 @@ void ExtCapture::GetFrame()
       return;
    }
 
-   uint8_t* sptr = reinterpret_cast<uint8_t*>(data) + pitch * m_DispTop;
+//   uint8_t* sptr = reinterpret_cast<uint8_t*>(data) + pitch * m_DispTop ;
+  // uint8_t* ddptr = (uint8_t *)m_pData;
+
+   uint8_t* sptr = reinterpret_cast<uint8_t*>(data) + pitch * (m_DispTop+m_Height);
    uint8_t* ddptr = (uint8_t *)m_pData;
+
 
    for (size_t h = 0; h < m_Height; ++h)
    {
       memcpy_s(ddptr, m_Width * 4, sptr + (m_DispLeft * 4), m_Width * 4);
-      sptr += pitch;
+      sptr -= pitch;
       ddptr += m_Width * 4;
    }
 
