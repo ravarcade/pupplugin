@@ -64,6 +64,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <IgnoreAllDefaultLibraries>
       </IgnoreAllDefaultLibraries>
+      <AdditionalDependencies>dxgi.lib;d3d11.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>@copy $(SolutionDir)$(Configuration)\$(ProjectName).dll "C:\Games\Future Pinball\BAM\plugins\$(ProjectName).dll"</Command>
@@ -84,10 +85,12 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>dxgi.lib;d3d11.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BAM.h" />
+    <ClInclude Include="captureExt.h" />
     <ClInclude Include="pbo.h" />
     <ClInclude Include="PuPVideo.h" />
     <ClInclude Include="resource.h" />
@@ -95,6 +98,7 @@
     <ClInclude Include="Tools.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="captureExt.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="pbo.cpp" />
     <ClCompile Include="PuPCOM.cpp" />

@@ -133,4 +133,8 @@ public:
 		/* [in] */ int targetTextureId,
 		/* [defaultvalue][in] */ int videoStreamId = 1);
 
+   HRESULT STDMETHODCALLTYPE SearchFor(
+      /* [in] */ BSTR windowName);
+
+
 };
