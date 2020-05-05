@@ -1,7 +1,5 @@
 // Windows Header Files:
-#include <windows.h>
-
-#include "Tools.h"
+#include "stdafx.h"
 
 namespace Tools 
 {
@@ -36,7 +34,7 @@ namespace Tools
 	{
 		DWORD olen;
 
-		// we have to ad '\0' and end of string, so we create tmp with size+1 and add '\0' at end
+		// we have to add '\0' and end of string, so we create tmp with size+1 and add '\0' at end
 		const char * vs = (const char *)GetResource(resData, "TEXT", &olen);
 		char *tmp = new char[olen + 1];
 		memcpy_s(tmp, olen + 1, vs, olen);

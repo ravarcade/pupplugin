@@ -134,10 +134,15 @@ public:
 		/* [defaultvalue][in] */ int videoStreamId = 1);
 
    HRESULT STDMETHODCALLTYPE SearchFor(
-      /* [in] */ BSTR windowName);
+        /* [in] */ BSTR windowName,
+	    /* [defaultvalue][in] */ VARIANT_BOOL useRegEx = VARIANT_FALSE);
 
    HRESULT STDMETHODCALLTYPE ShowVideo(
-	   /* [in] */ BSTR targetTextureName,
-	   /* [defaultvalue][in] */ BSTR windowName = (BSTR)L"PUPSCREEN2");
+	    /* [in] */ BSTR targetTextureName,
+	    /* [defaultvalue][in] */ BSTR windowName = (BSTR)L"PUPSCREEN2",
+	    /* [defaultvalue][in] */ VARIANT_BOOL useRegEx = VARIANT_FALSE);
+
+   HRESULT STDMETHODCALLTYPE StopVideo(
+	   /* [in] */ BSTR targetTextureName);
 
 };

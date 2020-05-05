@@ -9,13 +9,6 @@
 #include <warning.h>
 #include <DirectXMath.h>
 
-bool captureExternalDMD();
-void captureFindPUP();
-bool capturePUP();
-void captureStartup();
-void captureStop();
-void captureCheckTextures();
-
 class ExtCaptureOutput
 {
 public:

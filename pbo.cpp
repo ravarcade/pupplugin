@@ -1,8 +1,4 @@
-#include <vector>
-#define GLEW_STATIC
-#include <GL/glew.h>
-#include <gl/GL.h>
-#include "pbo.h"
+#include "stdafx.h"
 
 
 void PboTextures::Init(int width, int height, GLenum pixelFormat, int num)
@@ -15,9 +11,10 @@ void PboTextures::Cleanup()
 	for (auto &buf : buffers)
 		delete[] buf;
 
-
-	glDeleteBuffersARB(pbos.size(), pbos.data());
-	glDeleteTextures(textures.size(), textures.data());
+	if (pbos.size())
+		glDeleteBuffersARB(pbos.size(), pbos.data());
+	if (textures.size())
+		glDeleteTextures(textures.size(), textures.data());
 
 	buffers.clear();
 	pbos.clear();
@@ -32,7 +29,7 @@ char * PboTextures::GetBuffer()
 	return buffers[_bufferIdx];
 }
 
-GLuint PboTextures::GetTexture()
+GLuint PboTextures::GetTextureId()
 {
 	if (_textureIdx != _bufferIdx)
 		_textureIdx = (_textureIdx + 1) % textures.size();
@@ -53,8 +50,6 @@ void PboTextures::Swap()
 		// copy pixels from PBO to texture object
 		// Use offset instead of ponter.
 		glTexSubImage2D(GL_TEXTURE_2D, 0, 0, 0, _width, _height, _pixelformat, GL_UNSIGNED_BYTE, 0);
-
-//		glBindBufferARB(GL_PIXEL_UNPACK_BUFFER_ARB, pboIds[nextIndex]);
 
 		glBufferDataARB(GL_PIXEL_UNPACK_BUFFER_ARB, bufSize, 0, GL_STREAM_DRAW_ARB);
 		uint8_t *buf = (uint8_t *)glMapBufferARB(GL_PIXEL_UNPACK_BUFFER_ARB, GL_WRITE_ONLY_ARB);
@@ -92,8 +87,8 @@ void PboTextures::_GenPboTextures(GLsizei width, GLsizei height, GLenum pixelfor
 		glBindTexture(GL_TEXTURE_2D, outTextureIds[i]);
 
 		// filtrowanie
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
 

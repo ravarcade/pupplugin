@@ -22,6 +22,8 @@ In **PuPCOM.idl** you will find 4 command:
 - **GetTextureId** _"texturename"_ - argument is FP texture name, it returns Id (OpenGL texture id)
 - **ReplaceTexture** _orgTextureId_, _dstTextureId_ - replace _orgTextureId_ with _dstTextureId_.
 - **ReplaceTextureWithVideo** _targetTextureId_, _videoStreamId_ - used to play video stream in place of texture
+- **ShowVideo** _"texturename"_, _"windowname"_, useRegEx [optional, default = **FALSE**]  - play video stream in place of texture
+- **StopVideo** _"texturename"_ - stops video
 
 In FP you can have acces to new commands:
 ```
@@ -40,8 +42,40 @@ Else
 End If
 ```
 
-### 2. Video
+### 2. Usage cases:
+1. Initialization
+```
+Dim PP 
+Set PP = xBAM.Get("PuPPlugin")
+```
+2. Play Video from PUPSCREEN2 on "einstein poster" texture
+```
+PP.ShowVideo "einstein poster", "PUPSCREEN2"
+```
+3. Show notepad add
+```
+PP.ShowVideo "einstein poster", "Notepad", true
+```
+**Note:** last param: **useRegeEx = true** allows to select any window with "Notepad" in title, like "*** new document - Notepad"
+4. Show same video on 2 textures: "einstein poster" & "p1-beachwood"
+```
+PP.ShowVideo "einstein poster", "PUPSCREEN2"
+PP.ShowVideo "p1-beachwood", "PUPSCREEN2"
+```
+Yes. You will see same on 2 different places.
+5. Show 3 different videos on 3 textures:
+```
+PP.ShowVideo "einstein poster", "PUPSCREEN1"
+PP.ShowVideo "p1-beachwood", "PUPSCREEN2"
+PP.ShowVideo "flipper-t1-yellow-red", "Notepad", true
+```
+6. Stop video on selected texture:
+```
+PP.StopVideo "einstein poster"
+```
+
+### 3. Video
 In **PuPVideo.cpp** you can find how to update texture and replace any FP texture with somthine else.
 
-### 3. ToDo
+### 4. ToDo
 - Add shaders to replace FP/BAM draw. Right now replaced texture will be just texture over FP object and game lights will have impact how it looks.

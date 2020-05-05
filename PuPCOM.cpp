@@ -1,22 +1,4 @@
-#include <windows.h>
-// TODO: reference additional headers your program requires here
-#include <Vfw.h>
-
-// TODO: reference additional headers your program requires here
-// C RunTime Header Files
-#include <stdio.h>
-#include <stdlib.h>
-#include <malloc.h>
-#include <memory.h>
-#include <crtdbg.h>
-#define _USE_MATH_DEFINES
-#include <vector>
-#include <regex>
-
-
-#include "PuPCOM.h"
-#include "BAM.h"
-#include "PuPVideo.h"
+#include"stdafx.h"
 
 HRESULT STDMETHODCALLTYPE PuPCOM::Msg(
 	/* [in] */ BSTR txt)
@@ -40,6 +22,9 @@ HRESULT STDMETHODCALLTYPE PuPCOM::ReplaceTexture(
 	/* [in] */ int dstTextureId)
 {
 	BAM::render::ReplaceTexture(srcTextureId, dstTextureId);
+	if (dstTextureId == 0)
+		PuPVideo::StopVideo(srcTextureId);
+
 	return S_OK;
 }
 
@@ -49,21 +34,39 @@ HRESULT STDMETHODCALLTYPE PuPCOM::ReplaceTextureWithVideo(int targetTextureId, i
 	return S_OK;
 }
 
-HRESULT STDMETHODCALLTYPE PuPCOM::SearchFor(BSTR windowName)
+HRESULT STDMETHODCALLTYPE PuPCOM::SearchFor(BSTR windowName, VARIANT_BOOL useRegEx)
 {
    char szWindowName[MAX_PATH];
    WideCharToMultiByte(CP_ACP, 0, windowName, -1, szWindowName, MAX_PATH, NULL, NULL);
  
-   PuPVideo::SearchFor(szWindowName);
+   PuPVideo::SearchFor(szWindowName, useRegEx != VARIANT_FALSE);
    return S_OK;
 }
 
-HRESULT STDMETHODCALLTYPE PuPCOM::ShowVideo(BSTR targetTextureName, BSTR windowName)
+HRESULT STDMETHODCALLTYPE PuPCOM::ShowVideo(BSTR targetTextureName, BSTR windowName, VARIANT_BOOL useRegEx)
 {
 	int tid = 0;
 	GetTextureId(targetTextureName, &tid);
-	ReplaceTextureWithVideo(tid);
-	SearchFor(windowName);
+	if (tid)
+	{
+		char szWindowName[MAX_PATH];
+		WideCharToMultiByte(CP_ACP, 0, windowName, -1, szWindowName, MAX_PATH, NULL, NULL);
+
+		PuPVideo::ShowVideo(tid, szWindowName, useRegEx != VARIANT_FALSE);
+	}
+
+	return S_OK;
+}
+
+HRESULT STDMETHODCALLTYPE PuPCOM::StopVideo(
+	/* [in] */ BSTR targetTextureName)
+{
+	int tid = 0;
+	GetTextureId(targetTextureName, &tid);
+	if (tid)
+	{
+		PuPVideo::StopVideo(tid);
+	}
 
 	return S_OK;
 }

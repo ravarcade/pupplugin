@@ -3,7 +3,6 @@
 
 class PboTextures
 {
-
 public:
 	PboTextures() {}
 
@@ -11,7 +10,7 @@ public:
 	void Cleanup();
 
 	char *GetBuffer();
-	GLuint GetTexture();
+	GLuint GetTextureId();
 	void Swap();
 
 	int GetWidth() { return _width; }
