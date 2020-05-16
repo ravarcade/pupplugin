@@ -145,4 +145,9 @@ public:
    HRESULT STDMETHODCALLTYPE StopVideo(
 	   /* [in] */ BSTR targetTextureName);
 
+   HRESULT STDMETHODCALLTYPE IsWindowValid(
+	   /* [defaultvalue][in] */ BSTR windowName,
+	   /* [defaultvalue][in] */ VARIANT_BOOL useRegEx,
+	   /* [retval][out] */ VARIANT_BOOL *retval);
+
 };

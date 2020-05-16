@@ -70,3 +70,13 @@ HRESULT STDMETHODCALLTYPE PuPCOM::StopVideo(
 
 	return S_OK;
 }
+
+HRESULT STDMETHODCALLTYPE PuPCOM::IsWindowValid(BSTR windowName, VARIANT_BOOL useRegEx, VARIANT_BOOL * retval)
+{
+	char szWindowName[MAX_PATH];
+	WideCharToMultiByte(CP_ACP, 0, windowName, -1, szWindowName, MAX_PATH, NULL, NULL);
+
+	*retval = PuPVideo::IsWindowValid(szWindowName, useRegEx != VARIANT_FALSE) ? VARIANT_TRUE : VARIANT_FALSE;
+
+	return S_OK;
+}

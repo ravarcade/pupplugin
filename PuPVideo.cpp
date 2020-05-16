@@ -218,6 +218,11 @@ void PuPVideo::StopVideo(int textureId)
 	}
 }
 
+bool PuPVideo::IsWindowValid(const char * windowName, bool useRegEx)
+{
+	return _FindWindow(windowName, useRegEx) != nullptr;
+}
+
 PuPVideo * PuPVideo::_FindExisting(const char *windowName, bool useRegEx)
 {
 	PuPVideo *ret = nullptr;

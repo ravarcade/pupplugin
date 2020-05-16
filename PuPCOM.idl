@@ -42,6 +42,12 @@ interface IPuPCOM : IDispatch
    [id(6)]
    HRESULT StopVideo(
 	   [in] BSTR targetTextureName);
+
+   [id(7)]
+   HRESULT IsWindowValid(
+	   [in, defaultvalue("PUPSCREEN2")] BSTR windowName,
+	   [in, defaultvalue(0)] VARIANT_BOOL useRegEx,
+       [out, retval] VARIANT_BOOL *retval);
 };
 
 [

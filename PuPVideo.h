@@ -52,5 +52,5 @@ public:
 	static void SearchFor(const char *windowName, bool useRegEx = false);
 	static void ShowVideo(int textureId, const char *windowName, bool useRegEx = false);
 	static void StopVideo(int textureId);
-	
+	static bool IsWindowValid( const char *windowName, bool useRegEx = false);
 };
